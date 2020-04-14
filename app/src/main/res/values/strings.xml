@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GymLogSP20</string>
+    <string name="mainExerciseHint">Enter Exercise</string>
+    <string name="mainWeightHint">Enter Weight</string>
+    <string name="mainRepsHint">Enter Reps</string>
+    <string name="mainSubmitButton">Submit</string>
+    <string name="noLogsMessage">No records, time to go to the gym</string>
+</resources>
