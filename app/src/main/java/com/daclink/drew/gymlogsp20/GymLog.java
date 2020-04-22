@@ -19,12 +19,24 @@ public class GymLog {
 
     private Date mDate;
 
-    public GymLog(String exercise, int reps, double weight) {
+    private int mUserId;
+
+    public GymLog(String exercise, int reps, double weight, int userId) {
         mExercise = exercise;
         mReps = reps;
         mWeight = weight;
 
         mDate = new Date();
+
+        mUserId = userId;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 
     public int getLogId() {
