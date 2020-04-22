@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         getDatabase();
 
         checkForUser();
-        addUserToPreference(mUserId);
+
         loginUser(mUserId);
 
         mMainDisplay = findViewById(R.id.mainGymLogDisplay);
@@ -84,9 +84,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginUser(int userId) {
         mUser = mGymLogDAO.getUserByUserId(userId);
+        addUserToPreference(userId);
+        invalidateOptionsMenu();
+    }
 
-
-
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mUser != null) {
+            MenuItem item = menu.findItem(R.id.userMenuLogout);
+            item.setTitle(mUser.getUserName());
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void addUserToPreference(int userId) {
@@ -112,9 +120,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+
         if (mPreferences == null) {
             getPrefs();
         }
+
         mUserId = mPreferences.getInt(USER_ID_KEY, -1);
 
         if (mUserId != -1) {
@@ -125,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
         List<User> users = mGymLogDAO.getAllUsers();
         if (users.size() <= 0) {
             User defaultUser = new User("daclink", "dac123");
-            mGymLogDAO.insert(defaultUser);
+            User altUser = new User("drew", "dac123");
+            mGymLogDAO.insert(defaultUser,altUser);
         }
 
         Intent intent = LoginActivity.intentFactory(this);
@@ -134,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPrefs() {
-        SharedPreferences preferences = this.getSharedPreferences(PREFENCES_KEY, Context.MODE_PRIVATE);
+        mPreferences = this.getSharedPreferences(PREFENCES_KEY, Context.MODE_PRIVATE);
     }
 
     private void logoutUser() {
@@ -149,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                         clearUserFromIntent();
                         clearUserFromPref();
                         mUserId = -1;
+                        checkForUser();
                     }
                 });
         alertBuilder.setNegativeButton(getString(R.string.no),
@@ -191,9 +203,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("GYMLOG", "Couldn't convert reps");
         }
 
-        GymLog log = new GymLog(exercise, reps, weight, mUserId);
-
-        return log;
+        return new GymLog(exercise, reps, weight, mUserId);
 
     }
 
