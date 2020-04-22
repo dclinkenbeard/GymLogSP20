@@ -1,15 +1,22 @@
 package com.daclink.drew.gymlogsp20;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daclink.drew.gymlogsp20.db.AppDatabase;
 import com.daclink.drew.gymlogsp20.db.GymLogDAO;
@@ -65,6 +72,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void logoutUser(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        alertBuilder.setMessage(R.string.logout);
+
+        alertBuilder.setPositiveButton(getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        clearUserFromPref();
+                    }
+                });
+        alertBuilder.setNegativeButton(getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //We don't really need to do anything here.
+
+                    }
+                });
+
+        alertBuilder.create().show();
+
+    }
+
+    //TODO: implement removing user from preferences.
+    private void clearUserFromPref() {
+        Toast.makeText(this, "clear users not yet implemented", Toast.LENGTH_SHORT).show();
+    }
+
     private GymLog getValuesFromDisplay() {
         String exercise = "No record found";
         double weight = 0.0;
@@ -93,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
     private void refreshDisplay() {
         mGymLogs = mGymLogDAO.getGymLogs();
 
-        if (mGymLogs.size() >= 0) {
+        if (mGymLogs.size() <= 0) {
             mMainDisplay.setText(R.string.noLogsMessage);
+            return;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -105,5 +143,23 @@ public class MainActivity extends AppCompatActivity {
             sb.append("\n");
         }
         mMainDisplay.setText(sb.toString());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+     switch (item.getItemId()){
+         case R.id.userMenuLogout:
+             logoutUser();
+             return true;
+        default:
+        return super.onOptionsItemSelected(item);
+    }
     }
 }
