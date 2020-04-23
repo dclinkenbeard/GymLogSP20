@@ -27,7 +27,7 @@ public interface GymLogDAO {
     @Query("SELECT * FROM " + AppDatabase.GYMLOG_TABLE + " ORDER BY  mDate DESC")
     List<GymLog> getAllGymLogs();
 
-    @Query("SELECT * FROM " + AppDatabase.GYMLOG_TABLE + " WHERE mLogId = :logId")
+    @Query("SELECT * FROM " + AppDatabase.GYMLOG_TABLE + " WHERE mLogId = :logId  ORDER BY  mDate DESC")
     List<GymLog> getGymLogsById(int logId);
 
     @Query("SELECT * FROM " + AppDatabase.GYMLOG_TABLE + " WHERE mUserId = :userId  ORDER BY  mDate DESC")
