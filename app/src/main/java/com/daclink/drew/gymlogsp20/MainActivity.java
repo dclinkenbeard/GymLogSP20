@@ -203,7 +203,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("GYMLOG", "Couldn't convert reps");
         }
 
-        return new GymLog(exercise, reps, weight, mUserId);
+        GymLog log = new GymLog(exercise, reps, weight, mUserId);
+
+        return log;
 
     }
 
