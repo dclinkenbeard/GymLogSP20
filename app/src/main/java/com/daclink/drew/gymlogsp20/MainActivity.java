@@ -30,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String USER_ID_KEY = "com.daclink.drew.gymlogsp20.userIdKey";
     private static final String PREFENCES_KEY = "com.daclink.drew.gymlogsp20.PREFENCES_KEY";
+
     private TextView mMainDisplay;
+
+    //TODO:DEBUG
+    private TextView mDebug;
 
     private EditText mExercise;
     private EditText mWeight;
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
         loginUser(mUserId);
 
+//        debug();
+
         mMainDisplay = findViewById(R.id.mainGymLogDisplay);
         mMainDisplay.setMovementMethod(new ScrollingMovementMethod());
 
@@ -80,6 +86,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void debug() {
+        mDebug = findViewById(R.id.DEBUG);
+        mDebug.setMovementMethod(new ScrollingMovementMethod());
+        List<User> users = mGymLogDAO.getAllUsers();
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("All users:\n");
+
+        for(User u : users){
+            sb.append(u);
+            sb.append("\n");
+        }
+
+
+        sb.append("all Logs\n");
+        List<GymLog> logs = mGymLogDAO.getAllGymLogs();
+        for(GymLog log : logs){
+            sb.append(log);
+        }
+
+        mDebug.setText(sb.toString());
     }
 
     private void loginUser(int userId) {
@@ -210,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshDisplay() {
-        mGymLogs = mGymLogDAO.getGymLogsById(mUserId);
+        mGymLogs = mGymLogDAO.getGymLogsByUserId(mUserId);
 
         if (mGymLogs.size() <= 0) {
             mMainDisplay.setText(R.string.noLogsMessage);
