@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "4212baea5dc55a4ec232ebf460d28a1c",
+    "entities": [
+      {
+        "tableName": "GYMLOG_TABLE",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUserId` INTEGER NOT NULL, `mExercise` TEXT, `mReps` INTEGER NOT NULL, `mWeight` REAL NOT NULL, `mDate` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "mLogId",
+            "columnName": "mLogId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mExercise",
+            "columnName": "mExercise",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mReps",
+            "columnName": "mReps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mWeight",
+            "columnName": "mWeight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mDate",
+            "columnName": "mDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mLogId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "USER_TABLE",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `mFirst_name` TEXT, `mLast_name` TEXT, `mWeight` REAL NOT NULL, `mHeight` REAL NOT NULL, `mGender` INTEGER NOT NULL, `mLastLogin` INTEGER, `mAdmin` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUsername",
+            "columnName": "mUsername",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPassword",
+            "columnName": "mPassword",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mFirst_name",
+            "columnName": "mFirst_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mLast_name",
+            "columnName": "mLast_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mWeight",
+            "columnName": "mWeight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mHeight",
+            "columnName": "mHeight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mGender",
+            "columnName": "mGender",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mLastLogin",
+            "columnName": "mLastLogin",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAdmin",
+            "columnName": "mAdmin",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mUserId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4212baea5dc55a4ec232ebf460d28a1c')"
+    ]
+  }
+}
