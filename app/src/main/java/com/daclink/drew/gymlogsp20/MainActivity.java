@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         }
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putInt(USER_ID_KEY, userId);
+        //Thanks Yasha
+        editor.apply();
     }
 
     private void getDatabase() {
